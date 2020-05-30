@@ -59,7 +59,20 @@ router.post('/addActivity', (req, res) => {
     );
 });
 
-router.get('', (req, res) => {
+router.get('/getCurrentActivities', (req, res) => {
+    const today = moment().startOf('day');
+    ActivityEntry.findOne({
+        userId: req.userId,
+        date: {$gte: today.toDate(), $lte: moment(today).endOf('day').toDate()}
+    }, (err, activityEntry) => {
+        if (err) { // no entry has been made so far
+            return res.status(400).json({query: "Malformed query"});
+        } else if (activityEntry === null) {
+            return res.sendStatus(404);
+        } else {
+            return res.json(activityEntry);
+        }
+    })
 });
 
 module.exports = router;
