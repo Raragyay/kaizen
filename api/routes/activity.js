@@ -9,14 +9,14 @@ const validateActivityEntry = require('../validation/activityEntry');
 const checkToken = require('../validation/checkToken');
 const authenticateUser = require('../validation/authenticateUser');
 const retrieveUser = require('../retrieve/retrieveUser');
-const retrieveActivityEntry = require('../retrieve/retrieveActivityEntry');
+const retrieveEntryWithDate = require('../retrieve/retrieveEntryWithDate');
 const retrieveDate = require('../retrieve/retrieveDate');
 
 router.use(checkToken);
 router.use(authenticateUser);
 router.use(retrieveUser);
 router.use(retrieveDate);
-router.use(retrieveActivityEntry);
+router.use(retrieveEntryWithDate(ActivityEntry));
 
 function buildActivityArray(activityDict) {
     let activities = [];
