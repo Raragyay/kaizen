@@ -3,6 +3,7 @@ const moment = require('moment');
 const router = express.Router();
 const {ActivityEntry, Activity} = require('../models/ActivityEntry');
 const User = require('../models/User');
+const isEmpty = require('is-empty');
 
 const validateActivityEntry = require('../validation/activityEntry');
 const checkToken = require('../validation/checkToken');
@@ -71,28 +72,41 @@ router.post('', (req, res) => {
     if (req.activityEntry === null) {
         return res.status(404).json({error: "No entry exists for today. Did you mean to PUT the predicted activities?"})
     } else {
+        let alreadyRecordedActualActivities = !isEmpty(req.activityEntry.actualActivities);
+        let originalEntryWasAchieved = req.activityEntry.entryWasAchieved;
         req.activityEntry.actualActivities = buildActivityArray(req.body.activities);
         req.activityEntry.entryWasAchieved = req.body.achieved;
 
-        req.user.activityStats.activitiesEntered += 1;
-        if (req.date - req.user.activityStats.activityLastEntered === 86400000) {
+        if (!alreadyRecordedActualActivities) {
+            req.user.activityStats.activitiesEntered += 1;
+        }
+        if (req.date - req.user.activityStats.activityLastEntered === 86400000 && !alreadyRecordedActualActivities) {
             req.user.activityStats.activitiesEnteredStreak += 1;
-        } else {
+        } else if (!alreadyRecordedActualActivities) {
             req.user.activityStats.activitiesEnteredStreak = 1;
         }
-        req.user.activityStats.activityLastEntered = req.date;
+        if (req.date > req.user.activityStats.activityLastEntered) {
+            req.user.activityStats.activityLastEntered = req.date;
+        }
 
 
         if (req.body.achieved === true) {
-            req.user.activityStats.activitiesMet += 1;
-            if (req.date - req.user.activityStats.activityLastMet === 86400000) {
+            if (!originalEntryWasAchieved) {
+                req.user.activityStats.activitiesMet += 1;
+            }
+            if (req.date - req.user.activityStats.activityLastMet === 86400000 && !originalEntryWasAchieved) {
                 req.user.activityStats.activitiesMetStreak += 1;
-            } else {
+            } else if (!originalEntryWasAchieved) {
                 req.user.activityStats.activitiesMetStreak = 1;
             }
-            req.user.activityStats.activityLastMet = req.date;
+            if (req.date > req.user.activityStats.activityLastMet) {
+                req.user.activityStats.activityLastMet = req.date;
+            }
         } else {
             req.user.activityStats.activitiesMetStreak = 0;
+            if (originalEntryWasAchieved) {
+                req.user.activityStats.activitiesMet -= 1;
+            }
         }
         req.activityEntry
             .save()
