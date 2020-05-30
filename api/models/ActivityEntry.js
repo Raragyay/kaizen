@@ -29,7 +29,7 @@ const ActivityEntrySchema = new Schema({
         required: true
     },
 
-    actual_activities: {
+    actualActivities: {
         type: [ActivitySchema]
     },
 
