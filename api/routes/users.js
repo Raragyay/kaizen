@@ -6,6 +6,9 @@ const keys = require('../config/keys');
 
 const validateRegisterInput = require('../validation/register');
 const validateLoginInput = require('../validation/login');
+const checkToken = require('../validation/checkToken');
+const authenticateUser = require('../validation/authenticateUser');
+const retrieveUser = require('../retrieve/retrieveUser');
 
 const User = require('../models/User');
 
@@ -80,5 +83,8 @@ router.post('/login', (req, res) => {
     });
 });
 
+router.get('', checkToken, authenticateUser, retrieveUser, (req, res) => {
+    res.status(200).json(req.user);
+});
 
 module.exports = router;

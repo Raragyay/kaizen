@@ -20,7 +20,11 @@ const UserSchema = new Schema({
     },
 
     activityStats: {
-        activityStreak: {
+        activitiesMetStreak: {
+            type: Number,
+            default: 0
+        },
+        activitiesEnteredStreak: {
             type: Number,
             default: 0
         },
@@ -30,6 +34,14 @@ const UserSchema = new Schema({
         },
         activitiesEntered: {
             type: Number,
+            default: 0
+        },
+        activityLastEntered: {
+            type: Date,
+            default: 0
+        },
+        activityLastMet: {
+            type: Date,
             default: 0
         }
     }

@@ -2,15 +2,19 @@ const express = require('express');
 const moment = require('moment');
 const router = express.Router();
 const {ActivityEntry, Activity} = require('../models/ActivityEntry');
+const User = require('../models/User');
 
 const validateActivityEntry = require('../validation/activityEntry');
 const checkToken = require('../validation/checkToken');
 const authenticateUser = require('../validation/authenticateUser');
 const retrieveUser = require('../retrieve/retrieveUser');
 const retrieveActivityEntry = require('../retrieve/retrieveActivityEntry');
+const retrieveDate = require('../retrieve/retrieveDate');
+
 router.use(checkToken);
 router.use(authenticateUser);
 router.use(retrieveUser);
+router.use(retrieveDate);
 router.use(retrieveActivityEntry);
 
 function buildActivityArray(activityDict) {
@@ -35,7 +39,8 @@ router.put('', (req, res) => {
     if (req.activityEntry === null) {
         const newActivityEntry = new ActivityEntry({
             userId: req.user._id,
-            predictedActivities: activities
+            predictedActivities: activities,
+            date: req.date
         });
         newActivityEntry
             .save()
@@ -43,7 +48,7 @@ router.put('', (req, res) => {
             .catch(err => console.log(err));
     } else {
         req.activityEntry.predictedActivities = activities;
-        req.activityEntry.date = Date.now();
+        req.activityEntry.date = req.date;
         req.activityEntry
             .save()
             .then(activityEntry => res.sendStatus(200))
@@ -68,12 +73,33 @@ router.post('', (req, res) => {
     } else {
         req.activityEntry.actualActivities = buildActivityArray(req.body.activities);
         req.activityEntry.entryWasAchieved = req.body.achieved;
+
+        req.user.activityStats.activitiesEntered += 1;
+        if (req.date - req.user.activityStats.activityLastEntered === 86400000) {
+            req.user.activityStats.activitiesEnteredStreak += 1;
+        } else {
+            req.user.activityStats.activitiesEnteredStreak = 1;
+        }
+        req.user.activityStats.activityLastEntered = req.date;
+
+
+        if (req.body.achieved === true) {
+            req.user.activityStats.activitiesMet += 1;
+            if (req.date - req.user.activityStats.activityLastMet === 86400000) {
+                req.user.activityStats.activitiesMetStreak += 1;
+            } else {
+                req.user.activityStats.activitiesMetStreak = 1;
+            }
+            req.user.activityStats.activityLastMet = req.date;
+        } else {
+            req.user.activityStats.activitiesMetStreak = 0;
+        }
         req.activityEntry
             .save()
-            .then(activityEntry => res.sendStatus(200))
+            .then(req.user.save())
+            .then(res.sendStatus(200))
             .catch(err => console.log(err));
     }
-
 });
 
 router.delete('', (req, res) => {
@@ -92,5 +118,4 @@ router.get('', (req, res) => {
         return res.json(req.activityEntry);
     }
 });
-
 module.exports = router;
