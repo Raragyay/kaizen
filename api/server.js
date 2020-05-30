@@ -10,6 +10,7 @@ const passport = require('passport');
 var serverRouter = require('./routes');
 var usersRouter = require('./routes/users');
 var activityRouter = require('./routes/activity');
+var goalRouter = require('./routes/goal');
 
 const db = require('./config/keys').mongoURI;
 
@@ -46,6 +47,7 @@ require('./config/passport')(passport);
 app.use('/', serverRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/activity', activityRouter);
+app.use('/api/goal', goalRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

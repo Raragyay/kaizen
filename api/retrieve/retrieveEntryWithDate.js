@@ -14,11 +14,11 @@ module.exports = function retrieveEntryWithDate(cls) {
             // const today = typeof req.body.date === 'undefined' ? moment().startOf('day') : moment(req.body.date);
             cls.findOne({
                 userId: req.userId, date: {$gte: today, $lte: moment(today).endOf('day').toDate()}
-            }, function (err, activityEntry) {
+            }, function (err, entry) {
                 if (err) {
                     return res.status(400).json({query: "Malformed query"});
                 } else {
-                    req.activityEntry = activityEntry;
+                    req.entry = entry;
                     next();
                 }
             });

@@ -37,7 +37,7 @@ router.put('', (req, res) => {
     }
 
     let activities = buildActivityArray(req.body.activities);
-    if (req.activityEntry === null) {
+    if (req.entry === null) {
         const newActivityEntry = new ActivityEntry({
             userId: req.user._id,
             predictedActivities: activities,
@@ -48,9 +48,9 @@ router.put('', (req, res) => {
             .then(activityEntry => res.sendStatus(201))
             .catch(err => console.log(err));
     } else {
-        req.activityEntry.predictedActivities = activities;
-        req.activityEntry.date = req.date;
-        req.activityEntry
+        req.entry.predictedActivities = activities;
+        req.entry.date = req.date;
+        req.entry
             .save()
             .then(activityEntry => res.sendStatus(200))
             .catch(err => console.log(err));
@@ -69,13 +69,13 @@ router.post('', (req, res) => {
         return res.status(400).json(errors);
     }
 
-    if (req.activityEntry === null) {
+    if (req.entry === null) {
         return res.status(404).json({error: "No entry exists for today. Did you mean to PUT the predicted activities?"})
     } else {
-        let alreadyRecordedActualActivities = !isEmpty(req.activityEntry.actualActivities);
-        let originalEntryWasAchieved = req.activityEntry.entryWasAchieved;
-        req.activityEntry.actualActivities = buildActivityArray(req.body.activities);
-        req.activityEntry.entryWasAchieved = req.body.achieved;
+        let alreadyRecordedActualActivities = !isEmpty(req.entry.actualActivities);
+        let originalEntryWasAchieved = req.entry.entryWasAchieved;
+        req.entry.actualActivities = buildActivityArray(req.body.activities);
+        req.entry.entryWasAchieved = req.body.achieved;
 
         if (!alreadyRecordedActualActivities) {
             req.user.activityStats.activitiesEntered += 1;
@@ -108,7 +108,7 @@ router.post('', (req, res) => {
                 req.user.activityStats.activitiesMet -= 1;
             }
         }
-        req.activityEntry
+        req.entry
             .save()
             .then(req.user.save())
             .then(res.sendStatus(200))
@@ -117,19 +117,19 @@ router.post('', (req, res) => {
 });
 
 router.delete('', (req, res) => {
-    if (req.activityEntry === null) {
+    if (req.entry === null) {
         res.sendStatus(204);
     } else {
-        req.activityEntry.delete();
+        req.entry.delete();
         res.sendStatus(204);
     }
 });
 
 router.get('', (req, res) => {
-    if (req.activityEntry === null) {
+    if (req.entry === null) {
         return res.sendStatus(404);
     } else {
-        return res.json(req.activityEntry);
+        return res.json(req.entry);
     }
 });
 

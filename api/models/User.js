@@ -44,6 +44,20 @@ const UserSchema = new Schema({
             type: Date,
             default: 0
         }
+    },
+    goalStats: {
+        goalsMetStreak: {
+            type: Number,
+            default: 0
+        },
+        goalsMet: {
+            type: Number,
+            default: 0
+        },
+        goalLastMet: {
+            type: Date,
+            default: 0
+        }
     }
 });
 

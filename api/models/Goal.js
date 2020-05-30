@@ -15,6 +15,11 @@ const GoalSchema = new Schema({
         type: String,
         required: true,
         maxlength: 65535
+    },
+
+    achievedGoal: {
+        type: Boolean,
+        default: false
     }
 });
 module.exports = mongoose.model('goals', GoalSchema);
