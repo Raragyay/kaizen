@@ -138,7 +138,6 @@ router.get('/all', (req, res) => {
         if (err) {
             return res.sendStatus(404);
         } else {
-            console.log(entries);
             return res.json(entries);
         }
     })
