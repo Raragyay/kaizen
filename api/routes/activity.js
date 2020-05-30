@@ -11,7 +11,7 @@ router.use(checkToken);
 router.use(authenticateUser);
 router.use(retrieveUser);
 
-router.post('/addActivity', (req, res) => {
+router.put('/addActivityEntry', (req, res) => {
     const {errors, isValid} = validateActivityEntry(req.body);
 
     if (!isValid) {
@@ -34,11 +34,11 @@ router.post('/addActivity', (req, res) => {
                 if (activityEntry === null) {
                     const newActivityEntry = new ActivityEntry({
                         userId: req.user._id,
-                        activities: activities
+                        predictedActivities: activities
                     });
                     newActivityEntry
                         .save()
-                        .then(activity => res.json(activity))
+                        .then(activityEntry => res.status(201))
                         .catch(err => console.log(err));
                 } else {
                     if (req.body.confirm !== true) {
@@ -46,11 +46,11 @@ router.post('/addActivity', (req, res) => {
                     } else {
                         console.log(err);
                         console.log(activityEntry);
-                        activityEntry.activities = activities;
+                        activityEntry.predictedActivities = activities;
                         activityEntry.date = Date.now();
                         activityEntry
                             .save()
-                            .then(activity => res.json(activity))
+                            .then(activity => res.status(200))
                             .catch(err => console.log(err));
                     }
                 }

@@ -24,13 +24,22 @@ const ActivityEntrySchema = new Schema({
         default: Date.now
     },
 
-    activities: {
+    predictedActivities: {
         type: [ActivitySchema],
         required: true
+    },
+
+    actual_activities: {
+        type: [ActivitySchema]
+    },
+
+    entryWasAchieved: {
+        type: Boolean,
+        default: false
     }
 });
 
 module.exports = {
     ActivityEntry: mongoose.model('activityEntries', ActivityEntrySchema),
-    Activity: mongoose.model('activities', ActivitySchema)
+    Activity: mongoose.model('activity', ActivitySchema)
 };
