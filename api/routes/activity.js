@@ -132,4 +132,16 @@ router.get('', (req, res) => {
         return res.json(req.activityEntry);
     }
 });
+
+router.get('/all', (req, res) => {
+    ActivityEntry.find({userId: req.userId}, (err, entries) => {
+        if (err) {
+            return res.sendStatus(404);
+        } else {
+            console.log(entries);
+            return res.json(entries);
+        }
+    })
+});
+
 module.exports = router;
