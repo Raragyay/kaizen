@@ -1,5 +1,8 @@
 import React, {Component} from "react";
 import {Link} from "react-router-dom";
+import {connect} from "react-redux";
+import {loginUser} from "../../actions/authActions";
+import PropTypes from "prop-types";
 
 class Login extends Component {
     constructor() {
@@ -10,9 +13,23 @@ class Login extends Component {
             errors: {}
         };
     }
+
     onChange = e => {
-        this.setState({ [e.target.id]: e.target.value });
+        this.setState({[e.target.id]: e.target.value});
     };
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.auth.isAuthenticated) {
+            this.props.history.push("/dashboard");
+        }
+
+        if (nextProps.errors) {
+            this.setState({
+                errors: nextProps.errors
+            });
+        }
+    }
+
     onSubmit = e => {
         e.preventDefault();
         const userData = {
@@ -20,18 +37,20 @@ class Login extends Component {
             password: this.state.password
         };
         console.log(userData);
+        this.props.loginUser(userData);
     };
+
     render() {
-        const { errors } = this.state;
+        const {errors} = this.state;
         return (
             <div className="container">
-                <div style={{ marginTop: "4rem" }} className="row">
+                <div style={{marginTop: "4rem"}} className="row">
                     <div className="col s8 offset-s2">
                         <Link to="/" className="btn-flat waves-effect">
                             <i className="material-icons left">keyboard_backspace</i> Back to
                             home
                         </Link>
-                        <div className="col s12" style={{ paddingLeft: "11.250px" }}>
+                        <div className="col s12" style={{paddingLeft: "11.250px"}}>
                             <h4>
                                 <b>Login</b> below
                             </h4>
@@ -60,7 +79,7 @@ class Login extends Component {
                                 />
                                 <label htmlFor="password">Password</label>
                             </div>
-                            <div className="col s12" style={{ paddingLeft: "11.250px" }}>
+                            <div className="col s12" style={{paddingLeft: "11.250px"}}>
                                 <button
                                     style={{
                                         width: "150px",
@@ -81,4 +100,16 @@ class Login extends Component {
         );
     }
 }
-export default Login;
+
+Login.propTypes = {
+    loginUser: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired,
+    errors: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+    auth: state.auth,
+    errors: state.errors
+});
+
+export default connect(mapStateToProps, {loginUser})(Login);
