@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "npm run client_build && node api/bin/www",
+    "start": "npm install --prefix client && npm run client_build && node api/bin/www",
     "server": "npm run client_build && nodemon api/bin/www",
     "client_build": "npm run build --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
@@ -30,16 +30,8 @@
     "validator": "^13.0.0"
   },
   "devDependencies": {
-    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "constantinople": "^4.0.1",
-    "is-empty": "^1.2.0",
-    "jsonwebtoken": "^8.5.1",
-    "moment": "^2.26.0",
-    "mongoose": "^5.9.16",
-    "nodemon": "^2.0.4",
-    "passport": "^0.4.1",
-    "passport-jwt": "^4.0.0",
-    "validator": "^13.0.0"
+    "nodemon": "^2.0.4"
   }
 }
