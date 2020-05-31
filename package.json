@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node api/bin/www",
-    "server": "nodemon api/bin/www",
+    "server": "npm run client_build && nodemon api/bin/www",
+    "client_build": "npm run build --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "dependencies": {
