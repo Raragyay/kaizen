@@ -33,7 +33,7 @@ body {
 
 /*-- Fixed Landing Page Section --*/
 .landing {
-   height: 80vh;
+   height: 100vh;
 }
 .home-inner {
    background-image: url('../img/landing.jpg');
