@@ -25,6 +25,7 @@
     "morgan": "~1.10.0",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
+    "react-scripts": "^3.4.1",
     "uglify-js": "^3.9.4",
     "validator": "^13.0.0"
   },
