@@ -1,19 +1,18 @@
-import React, {Component} from "react";
-import {Link} from "react-router-dom";
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 class Landing extends Component {
     render() {
         return (
-            <div style={{height: "75vh"}} className="container valign-wrapper">
+            <div style={{ height: "75vh" }} className="container valign-wrapper">
                 <div className="row">
                     <div className="col s12 center-align">
                         <h4>
-                            Find <b><u>your</u></b> <i>new</i> definition of productivity with {" "}
-                            <span style={{fontFamily: "Pacifico"}}><i className="material-icons">done_all</i>AchieveKaizen</span>,
-                            a habit and goal tracking service.
+                            Track <b>your</b> <i>productivity</i> with {" "}
+                            <span style={{ fontFamily: "monospace" }}><u>AchieveKaizen</u></span>, a habit and goal tracking service.
                         </h4>
                         <p className="flow-text grey-text text-darken-1">
-                            <i>Track your productivity and use analytics to help finalize your goals.</i>
+                            <i>Join us now!</i>
                         </p>
                         <br />
                         <div className="col s6">
