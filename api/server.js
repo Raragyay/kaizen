@@ -44,6 +44,8 @@ mongoose
 app.use(passport.initialize());
 require('./config/passport')(passport);
 
+app.use(express.static('client/build'));
+
 app.use('/', serverRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/activity', activityRouter);
