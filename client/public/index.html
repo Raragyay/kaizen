@@ -1,17 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="theme-color" content="#000000">
-  <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
-  <!-- Compiled and minified CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>AchieveKaizen</title>
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <!-- Style.css -->
+  <link rel="stylesheet" href="css/style.css">
+  <!-- Google Fonts "%7C" replaces "|" for w3c validation -->
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
 </head>
-<body>
+
+<body data-spy="scroll" data-target="#navbarResponsive">
+
+<!-- Start Home Section -->
+<div id="home">
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-dark bg-dark navbard-expand-md fixed-top">
+    <a href="index.html" class="navbar-brand"><img
+            src="img/achieveKaizen.png" alt="Logo" title="Logo"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarResponsive">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item"><a href="#home" class="nav-link">Home</a></li>
+        <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
+        <li class="nav-item"><a href="#testimonials" class="nav-link">Testimonials</a></li>
+        <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
+        <li class="nav-item"><a href="#join" class="nav-link">Join Us</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- End Navigation -->
+
+  <!-- Start Landing Page Image-->
+  <div class="landing">
+    <div class="home-wrap">
+      <div class="home-inner"></div>
+    </div>
+  </div>
+  <!-- End Landing Page Image -->
+
+  <!-- Start Landing Page Content -->
+  <div id="join" class="offset">
+    <div class="col-12 caption">
+      <h1 class="text-light text-lowercase pb-3 pb-md-4">Find <u>your</u> new definition of being productive.</h1>
+    </div>
+  </div>
+  <!-- End Landing Page Content-->
+
+</div>
+<!-- End Home Section -->
+
+<!-- Start About Section -->
+<div id="about" class="offset">
+
+  <!--Start Theme Heading -->
+  <div class="row justify-content-center text-center py-4">
+    <div class="col-11 col-md-10 col-lg-9">
+      <h2>AchieveKaizen</h2>
+      <p class="lead">Want to reach your goals?</p>
+      <a class="btn btn-secondary btn-md" href="login.html">Start Here</a>
+    </div>
+  </div>
+  <!-- End Theme Heading -->
+
+  <!-- Start Jumbotron -->
+  <div class="jumbotron text-center pt-5 mb-0">
+    <h2 class="heading">About</h2>
+
+    <!--Start Row-->
+    <div class="row justify-content-center mt-5">
+
+      <div class="col-md-6 col-lg-4 about pb-4 pb-lg-2">
+        <i class="fas fa-check-square fa-3x"></i>
+        <h4 class="text-uppercase pt-3 pb-2">Keep Track</h4>
+        <p class="lead">Be able to plan out your short-term and long-term work schedule.</p>
+      </div>
+
+      <div class="col-md-6 col-lg-4 about pb-4 pb-lg-2">
+        <i class="fas fa-check-square fa-3x"></i>
+        <h4 class="text-uppercase pt-3 pb-2">Monitor progress</h4>
+        <p class="lead">Be able to compare what work you planned to complete and what was actually completed.</p>
+      </div>
+
+      <div class="col-md-6 col-lg-4 about pb-4 pb-lg-2">
+        <i class="fas fa-check-square fa-3x"></i>
+        <h4 class="text-uppercase pt-3 pb-2">Analyze and Improve</h4>
+        <p class="lead">Get access to our tools that help you improve your ability to complete goals.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- End Jumbotron -->
+
+</div>
+<!-- End About Section -->
+
+
+<!-- Start Testimonials Section -->
+<div id="testimonials" class="offset">
+
+  <!-- Start Jumbotron-->
+  <div class="jumbotron text-center pb-5 mb-0">
+    <h2 class="heading">Testimonials</h2>
+
+    <div class="row">
+      <div class="col-11 col-md-10">
+        <div class="row pt-3">
+          <div class="row justified-content-center">
+          <div class="col-md-6 pb-5">
+            <div class="card rounded-0 mx-lg-3 mx-lg-4">
+              <img src="img/testimonials/1.jpg" alt="Simon Francis"
+                   class="card-img-top rounded 0">
+              <div class="card-body">
+                   <h4>Simon Francis</h4>
+              <p class="lead border-top pt-3">I have noticed a great deal of improvement in
+              my productivity! It was this service that made me realize how often I was
+                not meeting my goals.</p>
+              </div>
+            </div>
+          </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Jumbotron -->
+
+</div>
+<!-- End Testimonials Section -->
+
+<!-- Start Contact Section -->
+<div id="contact" class="offset">
+
+  <div class="text-center fixed-bottom mb-3">
+    <a href="https://www.youtube.com/channel/UCBoVk_5B2rkAuSR_RrUqxXA/?guided_help_flow=5" target="_blank" style="color: #ff0000;"><i class="fab fa-youtube fa-2x"></i></a>
+  </div>
+
+</div>
+<!-- End Contact Section -->
+
+
+<!-- Script Source Files -->
+
+<!-- jQuery -->
+<script src="js/jquery-3.4.1.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="js/bootstrap.min.js"></script>
+<!-- Font Awesome -->
+<script src="js/all.min.js"></script>
+
+<!-- End of Script Source Files -->
 <noscript>
   You need to enable JavaScript to run this app.
 </noscript>
